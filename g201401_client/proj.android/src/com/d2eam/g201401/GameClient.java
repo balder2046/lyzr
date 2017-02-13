@@ -63,11 +63,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tencent.android.tpush.XGBasicPushNotificationBuilder;
-import com.tencent.android.tpush.XGPushClickedResult;
-import com.tencent.android.tpush.XGPushConfig;
-import com.tencent.android.tpush.XGPushManager;
-import com.tencent.android.tpush.horse.Tools;
+//import com.tencent.android.tpush.XGBasicPushNotificationBuilder;
+//import com.tencent.android.tpush.XGPushClickedResult;
+//import com.tencent.android.tpush.XGPushConfig;
+//import com.tencent.android.tpush.XGPushManager;
+//import com.tencent.android.tpush.horse.Tools;
 
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
@@ -89,7 +89,7 @@ import android.content.pm.PackageInfo;
 import android.net.Uri;
 
 //import com.dataeye.DCAgent;
-import com.tendcloud.tenddata.TalkingDataGA;
+//import com.tendcloud.tenddata.TalkingDataGA;
 
 public class GameClient extends Cocos2dxFakeActivity implements PreviewCallback  {
 
@@ -188,16 +188,15 @@ public class GameClient extends Cocos2dxFakeActivity implements PreviewCallback 
 		}
 
 		// TCAgent.init( context );
-		TalkingDataGA.init( context, "9AAEE3DB61137433E86CD4BC91E16240", "xx_"+platformId );
+	//	TalkingDataGA.init( context, "9AAEE3DB61137433E86CD4BC91E16240", "xx_"+platformId );
 
 		// 开启logcat输出，方便debug，发布时请关闭
-		XGPushConfig.enableDebug(getContext(), true);
+	//	XGPushConfig.enableDebug(getContext(), true);
 		// 如果需要知道注册是否成功，请使用registerPush(getApplicationContext(), XGIOperateCallback)带callback版本
 		// 如果需要绑定账号，请使用registerPush(getApplicationContext(),"account")版本
 		// 具体可参考详细的开发指南
 		// 传递的参数为ApplicationContext
-		XGPushManager.registerPush(getContext());	
-		Log.v("cocos2dx", "XGPushManager.registerPush and getToken="+XGPushConfig.getToken(getContext()));
+		//XGPushManager.registerPush(getContext());
 	}
 
 	@Override
@@ -205,7 +204,7 @@ public class GameClient extends Cocos2dxFakeActivity implements PreviewCallback 
 		audioPlayer.onResume();
 		super.onResume();
 		//DCAgent.onResume( getContext() );
-		TalkingDataGA.onResume( getContext() );
+		//TalkingDataGA.onResume( getContext() );
 		SdkWrapper.onResume();
 	}
 
@@ -225,7 +224,7 @@ public class GameClient extends Cocos2dxFakeActivity implements PreviewCallback 
 		audioPlayer.onPause();
 		super.onPause();
 		//DCAgent.onPause( getContext() );
-		TalkingDataGA.onPause( getContext() );
+		//TalkingDataGA.onPause( getContext() );
 		SdkWrapper.onPause();
 	}
 	protected void onStart(){
@@ -367,9 +366,7 @@ public class GameClient extends Cocos2dxFakeActivity implements PreviewCallback 
 	}
 
 	public static String getToken() {
-		Log.v("cocos2dx", "getToken="+XGPushConfig.getToken(getContext()));
-		return XGPushConfig.getToken(getContext());
-		//return "0123456789abcdef0123456789abcdef";
+		return "0123456789abcdef0123456789abcdef";
 	}
 
 	public static String getPlatformStr() {
@@ -447,7 +444,6 @@ public class GameClient extends Cocos2dxFakeActivity implements PreviewCallback 
 		getContext().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				SdkWrapper.loginUseSdk();
 			}
 		});
 	}	
@@ -456,7 +452,6 @@ public class GameClient extends Cocos2dxFakeActivity implements PreviewCallback 
 		getContext().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				SdkWrapper.showPayView(amount, roleId, roleName, callbackInfo, chargeUrl);
 			}
 		});
 	}
@@ -465,7 +460,6 @@ public class GameClient extends Cocos2dxFakeActivity implements PreviewCallback 
 		getContext().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				SdkWrapper.submitGameInfo(infoType, serverId, serverName, roleId, roleName, roleLevel);
 			}
 		});
 	}
@@ -501,10 +495,6 @@ public class GameClient extends Cocos2dxFakeActivity implements PreviewCallback 
 		if (prevTag.equals(newTag))
 			return;
 		Log.v(TAG, "XG-PUSH remove "+prevTag+" add "+newTag);
-		if (prevTag.length() != 0)
-			XGPushManager.deleteTag(getContext(), prevTag);
-		if (newTag.length() != 0)
-			XGPushManager.setTag(getContext(), newTag);
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
